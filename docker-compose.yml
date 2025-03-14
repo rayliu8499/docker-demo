@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "echo-server"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - app-network
+  db:
+    image: postgres:latest
+    container_name: "pgsql-db"
+    environment:
+      POSTGRES_PASSWORD: 12345678
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
